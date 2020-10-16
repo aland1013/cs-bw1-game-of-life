@@ -51,7 +51,28 @@ const Grid = () => {
 
   let newArr = nextGeneration(arr, 25, 25);
 
-  return <PixelGrid data={arr} />;
+  return (
+    <>
+      <PixelGrid
+        data={arr.map((row) => {
+          return row.map((cell) => (cell === 0 ? 1 : 0));
+        })}
+        options={{
+          size: 20,
+          padding: 4
+        }}
+      />
+      <PixelGrid
+        data={newArr.map((row) => {
+          return row.map((cell) => (cell === 0 ? 1 : 0));
+        })}
+        options={{
+          size: 20,
+          padding: 4
+        }}
+      />
+    </>
+  );
 };
 
 export default Grid;
