@@ -1,7 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PixelGrid from 'react-pixel-grid';
 
 const Grid = () => {
+  const seedGrid = () => {
+    let arr = new Array(25);
+    for (let a = 0; a < 25; a++) {
+      arr[a] = new Array(25);
+      for (let b = 0; b < 25; b++) {
+        arr[a][b] = Math.round(Math.random());
+      }
+    }
+    return arr;
+  };
+
+  const [cells, setCells] = useState(seedGrid());
+
   function nextGeneration(arr, w, h) {
     let newArr = new Array(h);
     for (let a = 0; a < h; a++) {
@@ -41,36 +54,21 @@ const Grid = () => {
     return newArr;
   }
 
-  let arr = new Array(25);
-  for (let a = 0; a < 25; a++) {
-    arr[a] = new Array(25);
-    for (let b = 0; b < 25; b++) {
-      arr[a][b] = Math.round(Math.random());
-    }
-  }
-
-  let newArr = nextGeneration(arr, 25, 25);
-
   return (
     <>
       <PixelGrid
-        data={arr.map((row) => {
+        data={cells.map((row) => {
           return row.map((cell) => (cell === 0 ? 1 : 0));
         })}
         options={{
-          size: 20,
-          padding: 4
+          size: 25,
+          padding: 1
         }}
       />
-      <PixelGrid
-        data={newArr.map((row) => {
-          return row.map((cell) => (cell === 0 ? 1 : 0));
-        })}
-        options={{
-          size: 20,
-          padding: 4
-        }}
-      />
+      <button onClick={() => setCells(nextGeneration(cells, 25, 25))}>
+        iterate
+      </button>
+      <button onClick={() => setCells(seedGrid())}>reset</button>
     </>
   );
 };
