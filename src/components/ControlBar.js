@@ -7,17 +7,22 @@ const ControlBar = ({
   buffer,
   setBuffer,
   isRunning,
-  setIsRunning
+  setIsRunning,
+  nextGeneration
 }) => {
   const [generation, setGeneration] = useState(1);
 
   useEffect(() => {
     if (isRunning) {
+<<<<<<< HEAD
       const timeout = setTimeout(() => {
         setCells(buffer);
         setBuffer(nextGeneration(buffer, 25, 25));
         setGeneration(generation + 1);
       }, 1000);
+=======
+      const timeout = setTimeout(() => iterate(), 1000);
+>>>>>>> 202e27103a21d351719d9a697892dbadb9631f65
       return () => clearTimeout(timeout);
     }
   }, [isRunning, cells]);
@@ -33,6 +38,7 @@ const ControlBar = ({
     return arr;
   };
 
+<<<<<<< HEAD
   const nextGeneration = (arr, w, h) => {
     let newArr = new Array(h);
     for (let a = 0; a < h; a++) {
@@ -70,6 +76,12 @@ const ControlBar = ({
     }
 
     return newArr;
+=======
+  const iterate = () => {
+    setCells(buffer);
+    setBuffer(nextGeneration(buffer, 25, 25));
+    setGeneration(generation + 1);
+>>>>>>> 202e27103a21d351719d9a697892dbadb9631f65
   };
 
   return (
@@ -83,6 +95,7 @@ const ControlBar = ({
       }}
     >
       <button onClick={() => setIsRunning(!isRunning)}>play/pause</button>
+<<<<<<< HEAD
       <button
         onClick={() => {
           setCells(buffer);
@@ -92,6 +105,9 @@ const ControlBar = ({
       >
         next
       </button>
+=======
+      <button onClick={() => (isRunning ? null : iterate())}>next</button>
+>>>>>>> 202e27103a21d351719d9a697892dbadb9631f65
       <button
         onClick={() => {
           setCells(seedGrid());
