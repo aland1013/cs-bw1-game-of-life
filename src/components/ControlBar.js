@@ -12,21 +12,6 @@ const ControlBar = ({
 }) => {
   const [generation, setGeneration] = useState(1);
 
-  useEffect(() => {
-    if (isRunning) {
-<<<<<<< HEAD
-      const timeout = setTimeout(() => {
-        setCells(buffer);
-        setBuffer(nextGeneration(buffer, 25, 25));
-        setGeneration(generation + 1);
-      }, 1000);
-=======
-      const timeout = setTimeout(() => iterate(), 1000);
->>>>>>> 202e27103a21d351719d9a697892dbadb9631f65
-      return () => clearTimeout(timeout);
-    }
-  }, [isRunning, cells]);
-
   const seedGrid = () => {
     let arr = new Array(25);
     for (let a = 0; a < 25; a++) {
@@ -38,51 +23,28 @@ const ControlBar = ({
     return arr;
   };
 
-<<<<<<< HEAD
-  const nextGeneration = (arr, w, h) => {
-    let newArr = new Array(h);
-    for (let a = 0; a < h; a++) {
-      newArr[a] = new Array(w);
-    }
+  const setRandom = () => {
+    const newCells = seedGrid();
+    setCells(newCells);
+    setBuffer(nextGeneration(newCells, 25, 25));
+    setGeneration(1);
+    setIsRunning(false);
+  };
 
-    for (let i = 0; i < arr.length; i++) {
-      for (let j = 0; j < arr[i].length; j++) {
-        let neighbors = 0;
-
-        for (let x = -1; x <= 1; x++) {
-          for (let y = -1; y <= 1; y++) {
-            if (x === 0 && y === 0) {
-            } else if (
-              typeof arr[i + x] != 'undefined' &&
-              typeof arr[i + x][j + y] != 'undefined' &&
-              arr[i + x][j + y]
-            ) {
-              neighbors++;
-            }
-          }
-        }
-
-        const cell = arr[i][j];
-        const total = cell + neighbors;
-
-        if (total === 3) {
-          newArr[i][j] = 1;
-        } else if (total === 4) {
-          newArr[i][j] = cell;
-        } else {
-          newArr[i][j] = 0;
-        }
-      }
-    }
-
-    return newArr;
-=======
   const iterate = () => {
     setCells(buffer);
     setBuffer(nextGeneration(buffer, 25, 25));
     setGeneration(generation + 1);
->>>>>>> 202e27103a21d351719d9a697892dbadb9631f65
   };
+
+  useEffect(() => {
+    if (isRunning) {
+      const timeout = setTimeout(() => {
+        iterate();
+      }, 1000);
+      return () => clearTimeout(timeout);
+    }
+  });
 
   return (
     <div
@@ -95,31 +57,18 @@ const ControlBar = ({
       }}
     >
       <button onClick={() => setIsRunning(!isRunning)}>play/pause</button>
-<<<<<<< HEAD
       <button
         onClick={() => {
-          setCells(buffer);
-          setBuffer(nextGeneration(buffer, 25, 25));
-          setGeneration(generation + 1);
+          iterate();
         }}
       >
         next
       </button>
-=======
-      <button onClick={() => (isRunning ? null : iterate())}>next</button>
->>>>>>> 202e27103a21d351719d9a697892dbadb9631f65
-      <button
-        onClick={() => {
-          setCells(seedGrid());
-          setGeneration(1);
-          setIsRunning(false);
-        }}
-      >
-        random
-      </button>
+      <button onClick={() => setRandom()}>random</button>
       <button
         onClick={() => {
           setCells(defaultGrid);
+          setBuffer(defaultGrid);
           setGeneration(1);
           setIsRunning(false);
         }}
