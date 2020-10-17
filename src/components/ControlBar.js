@@ -4,6 +4,8 @@ const ControlBar = ({
   defaultGrid,
   cells,
   setCells,
+  buffer,
+  setBuffer,
   isRunning,
   setIsRunning
 }) => {
@@ -12,7 +14,9 @@ const ControlBar = ({
   useEffect(() => {
     if (isRunning) {
       const timeout = setTimeout(() => {
-        setCells(nextGeneration(cells, 25, 25));
+        setCells(buffer);
+        setBuffer(nextGeneration(buffer, 25, 25));
+        setGeneration(generation + 1);
       }, 1000);
       return () => clearTimeout(timeout);
     }
@@ -65,8 +69,6 @@ const ControlBar = ({
       }
     }
 
-    setGeneration(generation + 1);
-
     return newArr;
   };
 
@@ -81,7 +83,13 @@ const ControlBar = ({
       }}
     >
       <button onClick={() => setIsRunning(!isRunning)}>play/pause</button>
-      <button onClick={() => setCells(nextGeneration(cells, 25, 25))}>
+      <button
+        onClick={() => {
+          setCells(buffer);
+          setBuffer(nextGeneration(buffer, 25, 25));
+          setGeneration(generation + 1);
+        }}
+      >
         next
       </button>
       <button

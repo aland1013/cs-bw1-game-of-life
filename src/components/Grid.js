@@ -12,14 +12,11 @@ for (let b = 1; b <= 25; b++) {
 
 const Grid = () => {
   const [cells, setCells] = useState(defaultGrid);
+  const [buffer, setBuffer] = useState(defaultGrid);
   const [isRunning, setIsRunning] = useState(false);
 
   const toggleCell = (i, j) => {
-    let newCells = [];
-
-    for (let a = 0; a < cells.length; a++) {
-      newCells[a] = cells[a].slice();
-    }
+    let newCells = JSON.parse(JSON.stringify(cells));
 
     if (cells[i][j] === 0) {
       newCells[i][j] = 1;
@@ -64,6 +61,8 @@ const Grid = () => {
         defaultGrid={defaultGrid}
         cells={cells}
         setCells={setCells}
+        buffer={buffer}
+        setBuffer={setBuffer}
         isRunning={isRunning}
         setIsRunning={setIsRunning}
       />
