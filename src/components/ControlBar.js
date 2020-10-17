@@ -71,7 +71,15 @@ const ControlBar = ({
   };
 
   return (
-    <>
+    <div
+      style={{
+        width: '50%',
+        display: 'flex',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        margin: '20px auto'
+      }}
+    >
       <button onClick={() => setIsRunning(!isRunning)}>play/pause</button>
       <button onClick={() => setCells(nextGeneration(cells, 25, 25))}>
         next
@@ -95,7 +103,7 @@ const ControlBar = ({
         clear
       </button>
       <h3>Generation: {generation}</h3>
-    </>
+    </div>
   );
 };
 

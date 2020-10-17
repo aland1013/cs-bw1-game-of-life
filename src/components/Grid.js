@@ -37,11 +37,11 @@ const Grid = () => {
           display: 'grid',
           gridTemplateColumns: '20px '.repeat(25),
           gridTemplateRows: '20px',
-          gap: '2px 2px',
+          gap: '1px 1px',
           backgroundColor: 'black',
-          border: '2px solid black',
+          border: '1px solid black',
           margin: '0 auto',
-          width: '548px'
+          width: '524px'
         }}
       >
         {cells.map((row, i) => {
