@@ -11,6 +11,7 @@ const ControlBar = ({
   nextGeneration
 }) => {
   const [generation, setGeneration] = useState(1);
+  const [speedToggle, setSpeedToggle] = useState(true);
 
   const seedGrid = () => {
     let arr = new Array(25);
@@ -39,9 +40,12 @@ const ControlBar = ({
 
   useEffect(() => {
     if (isRunning) {
-      const timeout = setTimeout(() => {
-        iterate();
-      }, 1000);
+      const timeout = setTimeout(
+        () => {
+          iterate();
+        },
+        speedToggle ? 500 : 1000
+      );
       return () => clearTimeout(timeout);
     }
   });
@@ -75,6 +79,7 @@ const ControlBar = ({
       >
         clear
       </button>
+      <button onClick={() => setSpeedToggle(!speedToggle)}>fast/slow</button>
       <h3>Generation: {generation}</h3>
     </div>
   );
