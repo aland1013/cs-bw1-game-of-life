@@ -4,16 +4,17 @@ const ControlBar = ({
   defaultGrid,
   cells,
   setCells,
+  buffer,
+  setBuffer,
   isRunning,
-  setIsRunning
+  setIsRunning,
+  nextGeneration
 }) => {
   const [generation, setGeneration] = useState(1);
 
   useEffect(() => {
     if (isRunning) {
-      const timeout = setTimeout(() => {
-        setCells(nextGeneration(cells, 25, 25));
-      }, 1000);
+      const timeout = setTimeout(() => iterate(), 1000);
       return () => clearTimeout(timeout);
     }
   }, [isRunning, cells]);
@@ -29,45 +30,10 @@ const ControlBar = ({
     return arr;
   };
 
-  const nextGeneration = (arr, w, h) => {
-    let newArr = new Array(h);
-    for (let a = 0; a < h; a++) {
-      newArr[a] = new Array(w);
-    }
-
-    for (let i = 0; i < arr.length; i++) {
-      for (let j = 0; j < arr[i].length; j++) {
-        let neighbors = 0;
-
-        for (let x = -1; x <= 1; x++) {
-          for (let y = -1; y <= 1; y++) {
-            if (x === 0 && y === 0) {
-            } else if (
-              typeof arr[i + x] != 'undefined' &&
-              typeof arr[i + x][j + y] != 'undefined' &&
-              arr[i + x][j + y]
-            ) {
-              neighbors++;
-            }
-          }
-        }
-
-        const cell = arr[i][j];
-        const total = cell + neighbors;
-
-        if (total === 3) {
-          newArr[i][j] = 1;
-        } else if (total === 4) {
-          newArr[i][j] = cell;
-        } else {
-          newArr[i][j] = 0;
-        }
-      }
-    }
-
+  const iterate = () => {
+    setCells(buffer);
+    setBuffer(nextGeneration(buffer, 25, 25));
     setGeneration(generation + 1);
-
-    return newArr;
   };
 
   return (
@@ -81,9 +47,7 @@ const ControlBar = ({
       }}
     >
       <button onClick={() => setIsRunning(!isRunning)}>play/pause</button>
-      <button onClick={() => setCells(nextGeneration(cells, 25, 25))}>
-        next
-      </button>
+      <button onClick={() => (isRunning ? null : iterate())}>next</button>
       <button
         onClick={() => {
           setCells(seedGrid());
