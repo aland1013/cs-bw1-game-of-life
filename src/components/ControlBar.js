@@ -1,6 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const ControlBar = ({ defaultGrid, cells, setCells }) => {
+  const [generation, setGeneration] = useState(1);
+  const [isRunning, setIsRunning] = useState(false);
+
+  useEffect(() => {
+    if (isRunning) {
+      const timeout = setTimeout(() => {
+        setCells(nextGeneration(cells, 25, 25));
+      }, 1000);
+      return () => clearTimeout(timeout);
+    }
+  }, [isRunning, cells]);
+
   const seedGrid = () => {
     let arr = new Array(25);
     for (let a = 0; a < 25; a++) {
@@ -48,16 +60,34 @@ const ControlBar = ({ defaultGrid, cells, setCells }) => {
       }
     }
 
+    setGeneration(generation + 1);
+
     return newArr;
   };
 
   return (
     <>
+      <button onClick={() => setIsRunning(!isRunning)}>play/pause</button>
       <button onClick={() => setCells(nextGeneration(cells, 25, 25))}>
         next
       </button>
-      <button onClick={() => setCells(seedGrid())}>random</button>
-      <button onClick={() => setCells(defaultGrid)}>clear</button>
+      <button
+        onClick={() => {
+          setCells(seedGrid());
+          setGeneration(1);
+        }}
+      >
+        random
+      </button>
+      <button
+        onClick={() => {
+          setCells(defaultGrid);
+          setGeneration(1);
+        }}
+      >
+        clear
+      </button>
+      <h3>Generation: {generation}</h3>
     </>
   );
 };

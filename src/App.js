@@ -4,7 +4,7 @@ import Grid from './components/Grid';
 function App() {
   return (
     <div>
-      <h1>Conway's Game of Life</h1>
+      <h1 style={{ textAlign: 'center' }}>Conway's Game of Life</h1>
       <Grid />
     </div>
   );
