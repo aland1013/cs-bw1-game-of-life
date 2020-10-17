@@ -12,6 +12,7 @@ for (let b = 1; b <= 25; b++) {
 
 const Grid = () => {
   const [cells, setCells] = useState(defaultGrid);
+  const [isRunning, setIsRunning] = useState(false);
 
   const toggleCell = (i, j) => {
     let newCells = [];
@@ -53,13 +54,19 @@ const Grid = () => {
                   alignSelf: 'stretch',
                   minHeight: '20px'
                 }}
-                onClick={() => toggleCell(i, j)}
+                onClick={() => (isRunning ? null : toggleCell(i, j))}
               ></div>
             );
           });
         })}
       </div>
-      <ControlBar defaultGrid={defaultGrid} cells={cells} setCells={setCells} />
+      <ControlBar
+        defaultGrid={defaultGrid}
+        cells={cells}
+        setCells={setCells}
+        isRunning={isRunning}
+        setIsRunning={setIsRunning}
+      />
     </>
   );
 };

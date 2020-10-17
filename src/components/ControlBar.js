@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
-const ControlBar = ({ defaultGrid, cells, setCells }) => {
+const ControlBar = ({
+  defaultGrid,
+  cells,
+  setCells,
+  isRunning,
+  setIsRunning
+}) => {
   const [generation, setGeneration] = useState(1);
-  const [isRunning, setIsRunning] = useState(false);
 
   useEffect(() => {
     if (isRunning) {
@@ -75,6 +80,7 @@ const ControlBar = ({ defaultGrid, cells, setCells }) => {
         onClick={() => {
           setCells(seedGrid());
           setGeneration(1);
+          setIsRunning(false);
         }}
       >
         random
@@ -83,6 +89,7 @@ const ControlBar = ({ defaultGrid, cells, setCells }) => {
         onClick={() => {
           setCells(defaultGrid);
           setGeneration(1);
+          setIsRunning(false);
         }}
       >
         clear
