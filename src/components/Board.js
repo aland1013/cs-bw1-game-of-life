@@ -10,7 +10,7 @@ for (let b = 1; b <= 25; b++) {
   defaultGrid.push(row);
 }
 
-const Grid = () => {
+const Board = () => {
   const [cells, setCells] = useState(defaultGrid);
   const [buffer, setBuffer] = useState(defaultGrid);
   const [isRunning, setIsRunning] = useState(false);
@@ -111,4 +111,4 @@ const Grid = () => {
   );
 };
 
-export default Grid;
+export default Board;
