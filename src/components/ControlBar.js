@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 const ControlBar = ({
   defaultGrid,
@@ -51,37 +54,46 @@ const ControlBar = ({
   });
 
   return (
-    <div
-      style={{
-        width: '50%',
-        display: 'flex',
-        justifyContent: 'space-evenly',
-        alignItems: 'center',
-        margin: '20px auto'
-      }}
-    >
-      <button onClick={() => setIsRunning(!isRunning)}>play/pause</button>
-      <button
-        onClick={() => {
-          iterate();
-        }}
-      >
-        next
-      </button>
-      <button onClick={() => setRandom()}>random</button>
-      <button
-        onClick={() => {
-          setCells(defaultGrid);
-          setBuffer(defaultGrid);
-          setGeneration(1);
-          setIsRunning(false);
-        }}
-      >
-        clear
-      </button>
-      <button onClick={() => setSpeedToggle(!speedToggle)}>fast/slow</button>
-      <h3>Generation: {generation}</h3>
-    </div>
+    <Grid container>
+      <Grid item xs={12}>
+        <Typography variant='h5' align='center' gutterBottom>
+          Generation: {generation}
+        </Typography>
+      </Grid>
+      <Grid item container justify='space-around'>
+        <Button variant='contained' onClick={() => setIsRunning(!isRunning)}>
+          play/pause
+        </Button>
+        <Button
+          variant='contained'
+          onClick={() => {
+            iterate();
+          }}
+        >
+          next
+        </Button>
+        <Button variant='contained' onClick={() => setRandom()}>
+          seed
+        </Button>
+        <Button
+          variant='contained'
+          onClick={() => {
+            setCells(defaultGrid);
+            setBuffer(defaultGrid);
+            setGeneration(1);
+            setIsRunning(false);
+          }}
+        >
+          clear
+        </Button>
+        <Button
+          variant='contained'
+          onClick={() => setSpeedToggle(!speedToggle)}
+        >
+          fast/slow
+        </Button>
+      </Grid>
+    </Grid>
   );
 };
 
