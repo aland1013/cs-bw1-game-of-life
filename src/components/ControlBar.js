@@ -13,7 +13,7 @@ const ControlBar = ({
   setIsRunning,
   nextGeneration
 }) => {
-  const [generation, setGeneration] = useState(1);
+  const [generation, setGeneration] = useState(0);
   const [speedToggle, setSpeedToggle] = useState(true);
 
   const seedGrid = () => {
@@ -31,7 +31,7 @@ const ControlBar = ({
     const newCells = seedGrid();
     setCells(newCells);
     setBuffer(nextGeneration(newCells, 25, 25));
-    setGeneration(1);
+    setGeneration(0);
     setIsRunning(false);
   };
 
@@ -80,7 +80,7 @@ const ControlBar = ({
           onClick={() => {
             setCells(defaultGrid);
             setBuffer(defaultGrid);
-            setGeneration(1);
+            setGeneration(0);
             setIsRunning(false);
           }}
         >

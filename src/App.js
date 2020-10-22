@@ -5,7 +5,6 @@ import Grid from '@material-ui/core/Grid';
 
 import Board from './components/Board';
 import Rules from './components/Rules';
-import ControlBar from './components/ControlBar';
 
 function App() {
   return (
