@@ -8,7 +8,7 @@ import Rules from './components/Rules';
 
 function App() {
   return (
-    <Container>
+    <Container style={{ paddingTop: '10px' }}>
       <Typography variant='h1' align='center' gutterBottom>
         Conway's Game of Life
       </Typography>
